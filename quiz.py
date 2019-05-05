@@ -4,6 +4,16 @@
 #All needed modules here
 from tkinter import *
 import os
+import random
+
+
+#Gonna be all the awnsers here so stop cheating boi
+
+questions = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9']
+questionsorig = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9']
+question = 0
+
+
 
 
 
@@ -22,6 +32,56 @@ def killregmenu():
     regmenu.destroy()
 #rip
 
+def actualquiz():
+    global question
+    random.shuffle(questions)
+    while question < 9:
+        if questions[0] == 'Q0':
+            print("Question 1 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q1':
+            print("Question 2 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q2':
+            print("Question 3 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q3':
+            print("Question 4 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q4':
+            print("Question 5 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q5':
+            print("Question 6 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q6':
+            print("Question 7 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q7':
+            print("Question 8 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q8':
+            print("Question 9 Has been Selected")
+            del questions[0]
+            question += 1
+        elif questions[0] == 'Q9':
+            print("Question 10 Has been Selected")
+            del questions[0]
+            question += 1
+
+
+
+
+
+
 
 def session():
     global sessionmenu
@@ -29,7 +89,7 @@ def session():
     sessionmenu.title("Quiz")
     sessionmenu.geometry("512x512")
     Label(sessionmenu, text = "Welcome to the Quiz").pack()
-    Button(sessionmenu, text = "Start").pack()
+    Button(sessionmenu, text = "Start", command =actualquiz).pack()
     Button(sessionmenu, text = "Scores").pack()
     Button(sessionmenu, text = "Quit", command =killsessionmenu).pack()
                          
