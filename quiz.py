@@ -16,7 +16,6 @@ question = 0
 
 
 
-
 #Legit its a tkinter massacare in this section
 def killcorrectmenu():
     correctmenu.destroy()
@@ -33,49 +32,82 @@ def killregmenu():
 #rip
 
 def actualquiz():
-    global question
     random.shuffle(questions)
+    global question
     while question < 9:
         if questions[0] == 'Q0':
             print("Question 1 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
+            q1img = PhotoImage(file="Q1.gif").pack()
+            canvas.create_image(image=q1img).pack()
+            
         elif questions[0] == 'Q1':
             print("Question 2 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
         elif questions[0] == 'Q2':
             print("Question 3 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
         elif questions[0] == 'Q3':
             print("Question 4 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
         elif questions[0] == 'Q4':
             print("Question 5 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
         elif questions[0] == 'Q5':
             print("Question 6 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
         elif questions[0] == 'Q6':
             print("Question 7 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
         elif questions[0] == 'Q7':
             print("Question 8 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
         elif questions[0] == 'Q8':
             print("Question 9 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
         elif questions[0] == 'Q9':
             print("Question 10 Has been Selected")
             del questions[0]
             question += 1
+            quizmenu = Toplevel(menu)
+            quizmenu.title("Quiz")
+            quizmenu.geometry("512x512")
 
 
 
