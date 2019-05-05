@@ -5,20 +5,38 @@
 from tkinter import *
 import os
 
+
+
+#Legit its a tkinter massacare in this section
 def killcorrectmenu():
     correctmenu.destroy()
 def killwrongmenu():
     wrongmenu.destroy()
 def killfailedmenu():
     failedmenu.destroy()
+def killsessionmenu():
+    sessionmenu.destroy()
+def killloginmenu():
+    logmenu.destroy()
+def killregmenu():
+    regmenu.destroy()
+#rip
+
+
+def session():
+    global sessionmenu
+    sessionmenu = Toplevel(menu)
+    sessionmenu.title("Quiz")
+    sessionmenu.geometry("512x512")
+    Label(sessionmenu, text = "Welcome to the Quiz").pack()
+    Button(sessionmenu, text = "Start").pack()
+    Button(sessionmenu, text = "Scores").pack()
+    Button(sessionmenu, text = "Quit", command =killsessionmenu).pack()
+                         
+
 
 def login_correct():
-    global correctmenu
-    correctmenu = Toplevel(menu)
-    correctmenu.title("Correct")
-    correctmenu.geometry("200x150")
-    Label(correctmenu, text = "Welcome").pack()
-    Button(correctmenu, width = 300, height = 10, text ="OK", command =killcorrectmenu).pack()
+    session()
 
 def login_wrong():
     global wrongmenu
@@ -104,6 +122,8 @@ def register(): # all the account data handling , plz send help
     password_entry.pack()
     Label(regmenu, text = "").pack()
     Button(regmenu, command = reguser, text = "Register", width = 15, height = 2).pack()
+    Label(regmenu, text = "").pack()
+    Button(regmenu, text = "Back", width = 15, command = killregmenu, height = 2).pack()
 
 def login(): #all your passwords are in plain text , facebook was my inspiration
     print("someone is trying to guess a password")
@@ -133,6 +153,8 @@ def login(): #all your passwords are in plain text , facebook was my inspiration
     password_entry2.pack()
     Label(logmenu, text = "").pack()
     Button(logmenu, text = "Login", width = 15, command = login_verify, height = 2).pack()
+    Label(logmenu, text = "").pack()
+    Button(logmenu, text = "Back", width = 15, command = killloginmenu, height = 2).pack()
 
 
 
