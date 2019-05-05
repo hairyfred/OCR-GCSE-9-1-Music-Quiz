@@ -3,13 +3,50 @@
 
 #All needed modules here
 from tkinter import *
+import os
+
+def killcorrectmenu():
+    correctmenu.destroy()
+def killwrongmenu():
+    wrongmenu.destroy()
+def killfailedmenu():
+    failedmenu.destroy()
+
+def login_correct():
+    global correctmenu
+    correctmenu = Toplevel(menu)
+    correctmenu.title("Correct")
+    correctmenu.geometry("200x150")
+    Label(correctmenu, text = "Welcome").pack()
+    Button(correctmenu, width = 300, height = 10, text ="OK", command =killcorrectmenu).pack()
+
+def login_wrong():
+    global wrongmenu
+    wrongmenu = Toplevel(menu)
+    wrongmenu.title("Wrong")
+    wrongmenu.geometry("200x150")
+    Label(wrongmenu, text = "Wrong Password").pack()
+    Button(wrongmenu, width = 300, height = 10, text ="OK", command =killwrongmenu).pack()
+
+
+def login_failed():
+    global failedmenu
+    failedmenu = Toplevel(menu)
+    failedmenu.title("Failed")
+    failedmenu.geometry("200x150")
+    Label(failedmenu, text = "Username not found").pack()
+    Button(failedmenu, width = 300, height = 10, text ="OK", command =killfailedmenu).pack()
+
+
 
 def reguser():
 
+    print("Someone is making an account")
+    
     username_info = username.get()
     password_info = password.get()
 
-    file=open(username_info+".txt", "w")
+    file=open(username_info, "w")
     file.write(username_info+"\n")
     file.write(password_info)
     file.close()
@@ -18,6 +55,31 @@ def reguser():
     password_entry.delete(0, END)
 
     Label(regmenu, text = "Registration Complete", fg = "green" ,font = ("calibri", 12)).pack()
+
+
+def login_verify():
+
+    usernamev = username_check.get()
+    passwordv = password_check.get()
+    username_entry2.delete(0, END)
+    password_entry2.delete(0, END)
+    
+    listoffiles = os.listdir()
+    if usernamev in listoffiles:
+        file1 = open(usernamev, "r")
+        verify = file1.read().splitlines()
+        if passwordv in verify:
+            print("Welcome")
+            login_correct()
+        else:
+            print("Wrong password")
+            login_wrong()
+
+    else:
+        print("Go create a account")
+        login_failed()
+        
+
 
 def register(): # all the account data handling , plz send help
     global regmenu
@@ -45,6 +107,37 @@ def register(): # all the account data handling , plz send help
 
 def login(): #all your passwords are in plain text , facebook was my inspiration
     print("someone is trying to guess a password")
+    global logmenu
+    logmenu = Toplevel(menu)
+    logmenu.title("Login")
+    logmenu.geometry("350x300")
+    Label(logmenu, text = "Login").pack()
+    Label(logmenu, text = "").pack()
+
+
+    global username_check
+    global password_check
+
+    
+    username_check = StringVar()
+    password_check = StringVar()
+
+    global username_entry2
+    global password_entry2
+    
+    Label(logmenu, text = "Username ' ").pack()
+    username_entry2 = Entry(logmenu, textvariable = username_check)
+    username_entry2.pack()
+    Label(logmenu, text = "Password ' ").pack()
+    password_entry2 = Entry(logmenu, textvariable = password_check)
+    password_entry2.pack()
+    Label(logmenu, text = "").pack()
+    Button(logmenu, text = "Login", width = 15, command = login_verify, height = 2).pack()
+
+
+
+
+
 
 
 def login_menu():    #Basically the login system ui , the rest of the comments can be up to your imagination because ill probly forget to comment things 3 hours in
