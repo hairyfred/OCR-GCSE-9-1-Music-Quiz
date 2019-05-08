@@ -206,10 +206,10 @@ def register(): # all the account data handling , plz send help
 
     Label(regmenu, text = "Registeration").pack()
     Label(regmenu, text = "").pack()
-    Label(regmenu, text = "Username ' ").pack()
+    Label(regmenu, text = "Username").pack()
     username_entry = Entry(regmenu, textvariable = username)
     username_entry.pack()
-    Label(regmenu, text = "Password ' ").pack()
+    Label(regmenu, text = "Password").pack()
     password_entry = Entry(regmenu, textvariable = password)
     password_entry.pack()
     Label(regmenu, text = "").pack()
@@ -237,10 +237,10 @@ def login(): #all your passwords are in plain text , facebook was my inspiration
     global username_entry2
     global password_entry2
     
-    Label(logmenu, text = "Username ' ").pack()
+    Label(logmenu, text = "Username").pack()
     username_entry2 = Entry(logmenu, textvariable = username_check)
     username_entry2.pack()
-    Label(logmenu, text = "Password ' ").pack()
+    Label(logmenu, text = "Password").pack()
     password_entry2 = Entry(logmenu, textvariable = password_check)
     password_entry2.pack()
     Label(logmenu, text = "").pack()
