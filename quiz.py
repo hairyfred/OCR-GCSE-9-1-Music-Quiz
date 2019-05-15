@@ -5,13 +5,15 @@
 from tkinter import *
 import os
 import random
+import time
 
 
 #Gonna be all the awnsers here so stop cheating boi
 
-questions = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9']
+questions = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4']
 questionsorig = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9']
-question = 0
+questiontot = 0
+endme = 1
 
 
 
@@ -29,85 +31,117 @@ def killloginmenu():
     logmenu.destroy()
 def killregmenu():
     regmenu.destroy()
+def killquestion():
+    quizmenu.destroy()
 #rip
+
+test123 = 1
+
+a = True
+
+
+    
 
 def actualquiz():
     random.shuffle(questions)
-    global question
-    while question < 9:
+    global quizmenu
+    global questiontot
+    questiontot = 0
+    while True:
         if questions[0] == 'Q0':
             print("Question 1 Has been Selected")
             del questions[0]
-            question += 1
+            questiontot += 1
             quizmenu = Toplevel(menu)
             quizmenu.title("Quiz")
             quizmenu.geometry("512x512")
-            q1img = PhotoImage(file="Q1.gif").pack()
-            canvas.create_image(image=q1img).pack()
-            
+            test_entry = Entry(quizmenu, show="", textvariable = test123)
+            test_entry.pack()
+            Button(quizmenu, text = "Quit").pack()
+ #           test_info = test123.get()
+ #           if test_info == 0:
+ #               print("wtf")
+ #           else:
+ #               print("how is this working")     
+            print("XDLMAO1")
+            time.sleep(1)
+            break
+            time.sleep(1)
+            actualquiz()
         elif questions[0] == 'Q1':
             print("Question 2 Has been Selected")
             del questions[0]
-            question += 1
+            questiontot += 1
             quizmenu = Toplevel(menu)
             quizmenu.title("Quiz")
             quizmenu.geometry("512x512")
+            test_entry = Entry(quizmenu, show="", textvariable = test123)
+            test_entry.pack()
+            Button(quizmenu, text = "Quit").pack()
+   #         test_info = test123.get()
+   #         if test_info == 0:
+   #             print("wtf")
+   #         else:
+   #             print("how is this working")
+            print("XDLMAO2")
+            time.sleep(1)
+            break
+            time.sleep(1)
+            actualquiz()
         elif questions[0] == 'Q2':
             print("Question 3 Has been Selected")
             del questions[0]
-            question += 1
+            questiontot += 1
             quizmenu = Toplevel(menu)
             quizmenu.title("Quiz")
             quizmenu.geometry("512x512")
+            test_entry = Entry(quizmenu, show="", textvariable = test123)
+            test_entry.pack()
+            Button(quizmenu, text = "Quit").pack()
+    #        test_info = test123.get()
+    #       if test_info == 0:
+    #            print("wtf")
+    #        else:
+    #            print("how is this working")
+            print("XDLMAO3")
+            time.sleep(1)
+            break
+            time.sleep(1)
+            actualquiz()
         elif questions[0] == 'Q3':
             print("Question 4 Has been Selected")
             del questions[0]
-            question += 1
+            questiontot += 1
             quizmenu = Toplevel(menu)
             quizmenu.title("Quiz")
             quizmenu.geometry("512x512")
-        elif questions[0] == 'Q4':
-            print("Question 5 Has been Selected")
-            del questions[0]
-            question += 1
-            quizmenu = Toplevel(menu)
-            quizmenu.title("Quiz")
-            quizmenu.geometry("512x512")
-        elif questions[0] == 'Q5':
-            print("Question 6 Has been Selected")
-            del questions[0]
-            question += 1
-            quizmenu = Toplevel(menu)
-            quizmenu.title("Quiz")
-            quizmenu.geometry("512x512")
-        elif questions[0] == 'Q6':
-            print("Question 7 Has been Selected")
-            del questions[0]
-            question += 1
-            quizmenu = Toplevel(menu)
-            quizmenu.title("Quiz")
-            quizmenu.geometry("512x512")
-        elif questions[0] == 'Q7':
-            print("Question 8 Has been Selected")
-            del questions[0]
-            question += 1
-            quizmenu = Toplevel(menu)
-            quizmenu.title("Quiz")
-            quizmenu.geometry("512x512")
-        elif questions[0] == 'Q8':
-            print("Question 9 Has been Selected")
-            del questions[0]
-            question += 1
-            quizmenu = Toplevel(menu)
-            quizmenu.title("Quiz")
-            quizmenu.geometry("512x512")
-        elif questions[0] == 'Q9':
-            print("Question 10 Has been Selected")
-            del questions[0]
-            question += 1
-            quizmenu = Toplevel(menu)
-            quizmenu.title("Quiz")
-            quizmenu.geometry("512x512")
+            test_entry = Entry(quizmenu, show="", textvariable = test123)
+            test_entry.pack()
+            Button(quizmenu, text = "Quit").pack()
+    #        test_info = test123.get()
+    #        if test_info == 0:
+    #            print("wtf")
+    #        else:
+    #            print("how is this working")
+            
+            print("XDLMAO4")
+            time.sleep(1)
+            break
+            time.sleep(1)
+            actualquiz()
+
+
+    if questiontot < 4:
+        quizmenu.destroy
+        actualquiz()
+    else:
+        print("im happy")
+
+                                
+
+                                
+                        
+       
 
 
 
