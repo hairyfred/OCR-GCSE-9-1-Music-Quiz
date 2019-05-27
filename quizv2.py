@@ -12,7 +12,6 @@ questionsorig = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9']
 questiontot = 0
 endme = 1
 
-print("Xdlmao")
 #Legit its a tkinter massacare in this section
 def killcorrectmenu():
     correctmenu.destroy()
