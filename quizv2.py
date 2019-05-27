@@ -181,7 +181,6 @@ def login_correct():                                      #Wrong password
 def session():
     killcorrectmenu()
     killloginmenu()
-    killmenu()
     global sessionmenu
     sessionmenu = Toplevel
     sessionmenu.title("Quiz")
@@ -189,11 +188,8 @@ def session():
     Label(sessionmenu, text = "Welcome to the Quiz").pack()
     Button(sessionmenu, text = "Start", command =actualquiz).pack()
     Button(sessionmenu, text = "Scores").pack()
-    Button(sessionmenu, text = "Quit", command =ultimateback).pack()
+    Button(sessionmenu, text = "Quit", command =killsessionmenu).pack()
 
-def ultimateback():
-    killsessionmenu
-    login_menu()
                          
 
 
