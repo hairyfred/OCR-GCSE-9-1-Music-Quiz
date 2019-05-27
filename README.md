@@ -1,6 +1,4 @@
 # Python Music Quiz
-help me 
-funny xd
 
 Concept
 
