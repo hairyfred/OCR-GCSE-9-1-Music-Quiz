@@ -182,7 +182,7 @@ def session():
     killcorrectmenu()
     killloginmenu()
     global sessionmenu
-    sessionmenu = Toplevel
+    sessionmenu = Toplevel(menu)
     sessionmenu.title("Quiz")
     sessionmenu.geometry("512x512")
     Label(sessionmenu, text = "Welcome to the Quiz").pack()
