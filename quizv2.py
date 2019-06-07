@@ -6,11 +6,14 @@ from tkinter import *
 import os
 import random
 import time
+import base64
+
 
 questions = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4']
 questionsorig = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9']
 questiontot = 0
 endme = 1
+
 
 #Legit its a tkinter massacare in this section
 def killcorrectmenu():
@@ -47,11 +50,11 @@ def login_menu():    #Basically the login system ui
     menu = Tk()                                                                                                 #Start login gui
     menu.geometry("350x300")                                                                                    #Window size
     menu.title("Python Music Quiz")                                                                             #Title
-    Label(text = "Python Music Quiz", bg = "grey", width = "350", height = "4", font = ("Calibri", 13)).pack()  #Fancy title text
+    Label(text = "Python Music Quiz", bg = "grey", width = "350", height = "3", font = ("Gill Sans Ultra Bold", 15)).pack()  #Fancy title text
     Label(text = "").pack()                                                                                     #Blank Spacer 900000000                                     
-    Button(text = "Login", command = login, height = "4", width = "40").pack()                                  #Directs to login function
+    Button(text = "Login", command = login, height = "3", width = "40").pack()                                  #Directs to login function
     Label(text = "").pack()                                                                                     #Blank Spacer 900000000
-    Button(text = "Register", command = register, height = "4", width = "40").pack()                            #Directs to register function
+    Button(text = "Register", command = register, height = "3", width = "40").pack()                            #Directs to register function
 
 
     menu.mainloop()
@@ -119,11 +122,14 @@ def reguser():
     print("Someone is making an account")
     
     username_info = username.get()                                                               #Gets entered Username 
-    password_info = password.get()                                                               #Gets entered Password
-
+    password_info = password.get()#Gets entered Password
+    password_64 = base64.b64encode(password_info.encode())                                       #Converts password to base64 byte
+    #print(password_64)                                                                          
+    password_string = str(password_64)                                                           #Converts byte to string
+    #print(password_string)
     file=open(username_info, "w")                                                                #Makes a new file named after username
     file.write(username_info+"\n")                                                               #Writes Username
-    file.write(password_info)                                                                    #Writes password
+    file.write(password_string)                                                                    #Writes password
     file.close()                                                                                 #Closes the file
 
     username_entry.delete(0, END)                                                                   
@@ -137,12 +143,15 @@ def login_verify():                                     #Verifys details
     passwordv = password_check.get()
     username_entry2.delete(0, END)
     password_entry2.delete(0, END)
-    
+
+    password_64check = base64.b64encode(passwordv.encode())
+    #print(password_64check)
+    password_checkstring = str(password_64check)
     listoffiles = os.listdir()                          #Lists files in its current directory
     if usernamev in listoffiles:
         file1 = open(usernamev, "r")                    #Reads them only! not wipes them
         verify = file1.read().splitlines()              #Splits the lines due to username and password being on differnt lines
-        if passwordv in verify:
+        if password_checkstring in verify:
             print("Welcome")
             login_correct()                             #Brings up a confirmation Screen
         else:
@@ -178,18 +187,21 @@ def login_correct():                                      #Wrong password
     Button(correctmenu, width = 300, height = 10, text ="OK", command =session).pack()
 
 
-def session():
-    killcorrectmenu()
+def session():                                            #Actual quiz after logged in
+    killcorrectmenu()                                     #Kills the login menu
     killloginmenu()
     global sessionmenu
     sessionmenu = Toplevel(menu)
     sessionmenu.title("Quiz")
     sessionmenu.geometry("512x512")
-    Label(sessionmenu, text = "Welcome to the Quiz").pack()
+    Label(sessionmenu, text = "Welcome to the Quiz").pack()         #New Menu for quiz options
     Button(sessionmenu, text = "Start", command =actualquiz).pack()
     Button(sessionmenu, text = "Scores").pack()
-    Button(sessionmenu, text = "Quit", command =killsessionmenu).pack()
+    Button(sessionmenu, text = "Quit", command =ultimateback).pack()
 
+def ultimateback():                   #NOT USED FOR NOW UNTIL FIXED
+    killsessionmenu
+    login_menu()
                          
 
 
@@ -292,4 +304,3 @@ def actualquiz():
 login_menu()      
 
 
-#test
