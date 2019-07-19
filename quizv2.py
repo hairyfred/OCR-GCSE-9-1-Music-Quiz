@@ -3,6 +3,7 @@
 
 #All needed modules here
 from tkinter import *
+from tkinter import PhotoImage
 import os
 import random
 import time
@@ -127,7 +128,7 @@ def reguser():
     
     username_info = username.get()                                                               #Gets entered Username 
     password_info = password.get()#Gets entered Password
-    random.seed(password_info,22222222222222222222222222222222222222222222222.2)
+    random.seed(password_info,2)
     hashpassword = random.random()
     hashpasswordtext = str(hashpassword)
     print(hashpassword)
@@ -154,7 +155,7 @@ def login_verify():                                     #Verifys details
     username_entry2.delete(0, END)
     password_entry2.delete(0, END)
 
-    random.seed(passwordv,22222222222222222222222222222222222222222222222.2)
+    random.seed(passwordv,2)
     hashpasswordlogin = random.random()
     hashpasswordtextlogin = str(hashpasswordlogin)
     print(hashpasswordlogin)
@@ -209,6 +210,10 @@ def session():                                            #Actual quiz after log
     Button(sessionmenu, text = "Start", command =actualquiz).pack()
     Button(sessionmenu, text = "Scores").pack()
     Button(sessionmenu, text = "Quit", command =ultimateback).pack()
+    photo = PhotoImage(file="passion.gif")
+    Label(sessionmenu, image=photo).pack()
+    Label.image = photo
+
 
 def ultimateback():                   #NOT USED FOR NOW UNTIL FIXED
     killsessionmenu
