@@ -7,12 +7,16 @@ import os
 import random
 import time
 import base64
+import hashlib
+import binascii
+import uuid
 
 
 questions = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4']
 questionsorig = ['Q0', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9']
 questiontot = 0
 endme = 1
+
 
 
 #Legit its a tkinter massacare in this section
@@ -123,20 +127,26 @@ def reguser():
     
     username_info = username.get()                                                               #Gets entered Username 
     password_info = password.get()#Gets entered Password
-    password_64 = base64.b64encode(password_info.encode())                                       #Converts password to base64 byte
-    #print(password_64)                                                                          
-    password_string = str(password_64)                                                           #Converts byte to string
-    #print(password_string)
+    random.seed(password_info,22222222222222222222222222222222222222222222222.2)
+    hashpassword = random.random()
+    hashpasswordtext = str(hashpassword)
+    print(hashpassword)
     file=open(username_info, "w")                                                                #Makes a new file named after username
     file.write(username_info+"\n")                                                               #Writes Username
-    file.write(password_string)                                                                    #Writes password
+    file.write(hashpasswordtext)                                                                    #Writes password
     file.close()                                                                                 #Closes the file
 
     username_entry.delete(0, END)                                                                   
     password_entry.delete(0, END)                                                                #Resets line
 
     Label(regmenu, text = "Registration Complete", fg = "green" ,font = ("calibri", 12)).pack()  #Cause green means succsess 
-
+def big_pass():
+    number = 420.;
+    num2 = 0;
+    while(num2 < 1000):
+        number = number * 2
+        num2 = num2 + 1
+    return number
 def login_verify():                                     #Verifys details
 
     usernamev = username_check.get()
@@ -144,14 +154,15 @@ def login_verify():                                     #Verifys details
     username_entry2.delete(0, END)
     password_entry2.delete(0, END)
 
-    password_64check = base64.b64encode(passwordv.encode())
-    #print(password_64check)
-    password_checkstring = str(password_64check)
+    random.seed(passwordv,22222222222222222222222222222222222222222222222.2)
+    hashpasswordlogin = random.random()
+    hashpasswordtextlogin = str(hashpasswordlogin)
+    print(hashpasswordlogin)
     listoffiles = os.listdir()                          #Lists files in its current directory
     if usernamev in listoffiles:
         file1 = open(usernamev, "r")                    #Reads them only! not wipes them
         verify = file1.read().splitlines()              #Splits the lines due to username and password being on differnt lines
-        if password_checkstring in verify:
+        if hashpasswordtextlogin in verify:
             print("Welcome")
             login_correct()                             #Brings up a confirmation Screen
         else:
@@ -302,5 +313,4 @@ def actualquiz():
 
 
 login_menu()      
-
 

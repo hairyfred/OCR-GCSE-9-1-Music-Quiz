@@ -288,22 +288,22 @@ def login(): #all your passwords are in plain text , facebook was my inspiration
 
 
 
-def login_menu():    #Basically the login system ui , the rest of the comments can be up to your imagination because ill probly forget to comment things 3 hours in
-    global menu
+def login_menu():    #Basically the login system ui
+    global menu      #Globalising it so I can use it anywhere
 
 
 
 
-    menu = Tk()
-    menu.geometry("350x300")
-    menu.title("Python Music Quiz")
-    Label(text = "Python Music Quiz", bg = "grey", width = "350", height = "4", font = ("Calibri", 13)).pack()
-    Label(text = "").pack() #Blank Spacer 900000000
-    Button(text = "Login", command = login, height = "4", width = "40").pack()
-    Label(text = "").pack() #Blank Spacer 900000000
-    Button(text = "Register", command = register, height = "4", width = "40").pack()
+    menu = Tk()                                                                                                 #Start login gui
+    menu.geometry("350x300")                                                                                    #Window size
+    menu.title("Python Music Quiz")                                                                             #Title
+    Label(text = "Python Music Quiz", bg = "grey", width = "350", height = "4", font = ("Calibri", 13)).pack()  #Fancy title text
+    Label(text = "").pack()                                                                                     #Blank Spacer 900000000                                     
+    Button(text = "Login", command = login, height = "4", width = "40").pack()                                  #Directs to login function
+    Label(text = "").pack()                                                                                     #Blank Spacer 900000000
+    Button(text = "Register", command = register, height = "4", width = "40").pack()                            #Directs to register function
 
 
-    menu.mainloop()
+    menu.mainloop()                                                                                             #Loops it untill it reciveces a input
     
-login_menu()
+login_menu()                                                                                                    #Starts the login_menu()
