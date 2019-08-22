@@ -2,3 +2,14 @@
 .idea/workspace.xml
 
 .idea
+
+venv
+
+venv/Include
+
+venv/Lib
+
+venv/Scripts
+
+*.pth
+venv/Lib/site-packages/easy-install.pth

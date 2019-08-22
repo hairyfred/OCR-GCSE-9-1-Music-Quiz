@@ -16,7 +16,8 @@ songname = "default"
 artist = "default"
 art = "default"
 img = 0
-
+status = 0
+status = 1
 
 class quizarray:
     def __init__(change):
@@ -39,7 +40,7 @@ quizquestion = {
 questiontot = 0
 endme = 1
 
-
+listoffiles = os.listdir()
 # Legit its a tkinter massacare in this section
 def killcorrectmenu():
     correctmenu.destroy()
@@ -80,6 +81,11 @@ def killmenu():
 def killsession():
     sessionmenu.destroy()
 
+def killaccountexists():
+    accountexists1.destroy()
+
+def killaccountmade():
+    accountmade1.destroy()
 
 # rip
 
@@ -145,6 +151,7 @@ def register():  # all the account data handling , plz send help
     global password
     global username_entry
     global password_entry
+    global status1
     username = StringVar()
     password = StringVar()
 
@@ -157,30 +164,54 @@ def register():  # all the account data handling , plz send help
     password_entry = Entry(regmenu, show="*", textvariable=password)
     password_entry.pack()
     Label(regmenu, text="").pack()
+    status1 = 0
     Button(regmenu, command=reguser, text="Register", width=15, height=2).pack()
     Label(regmenu, text="").pack()
     Button(regmenu, text="Back", width=15, command=killregmenu, height=2).pack()
 
-
+def statusstuff():
+    status1 + 1
 def reguser():
     print("Someone is making an account")
+    global status
+    global status1
 
+    status2 = 1
+    status = 0
     username_info = username.get()  # Gets entered Username
-    password_info = password.get()  # Gets entered Password
-    random.seed(password_info, 2)
-    hashpassword = random.random()
-    hashpasswordtext = str(hashpassword)
-    print(hashpassword)
-    file = open(username_info, "w")  # Makes a new file named after username
-    file.write(username_info + "\n")  # Writes Username
-    file.write(hashpasswordtext)  # Writes password
-    file.close()  # Closes the file
+    if username_info in listoffiles:
+        accountexists()
+    else:
+        password_info = password.get()  # Gets entered Password
+        random.seed(password_info, 2)
+        hashpassword = random.random()
+        hashpasswordtext = str(hashpassword)
+        print(hashpassword)
+        file = open(username_info, "w")  # Makes a new file named after username
+        file.write(username_info + "\n")  # Writes Username
+        file.write(hashpasswordtext)  # Writes password
+        file.close()  # Closes the file
 
-    username_entry.delete(0, END)
-    password_entry.delete(0, END)  # Resets line
+        username_entry.delete(0, END)
+        password_entry.delete(0, END)  # Resets line
+        accountmade()
 
-    Label(regmenu, text="Registration Complete", fg="green", font=("calibri", 12)).pack()  # Cause green means succsess
 
+def accountexists():  # Wrong password
+    global accountexists1
+    accountexists1 = Toplevel(menu)
+    accountexists1.title("")
+    accountexists1.geometry("200x150")
+    Label(accountexists1, text="Account Exists").pack()
+    Button(accountexists1, width=300, height=10, text="OK", command=killaccountexists).pack()
+
+def accountmade():
+    global accountmade1
+    accountmade1 = Toplevel(menu)
+    accountmade1.title("")
+    accountmade1.geometry("200x150")
+    Label(accountmade1, text="Registration Complete", fg="green", font=("calibri", 12)).pack()
+    Button(accountmade1, width=300, height=10, text="OK", command=killaccountmade).pack()
 
 def big_pass():
     number = 420.;
