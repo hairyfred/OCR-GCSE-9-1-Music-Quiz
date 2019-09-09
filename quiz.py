@@ -17,7 +17,7 @@ artist = "default"
 art = "default"
 img = 0
 status = 0
-status = 1
+
 
 class quizarray:
     def __init__(change):
