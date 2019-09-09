@@ -1,7 +1,7 @@
 #####Expect tons of spaghetti code , plus i doubt you even read this
 #####Just copy and paste it into google to see if i copy and pasted
 
-# All needed modules here
+# All needed modules here reee
 from tkinter import *
 from tkinter import PhotoImage
 import os
