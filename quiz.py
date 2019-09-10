@@ -12,6 +12,7 @@ import hashlib
 import binascii
 import uuid
 
+
 songname = "default"
 artist = "default"
 art = "default"
@@ -303,6 +304,7 @@ def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
 
 
 def actualquiz():
+    awnser1 = 1
     label = Label()
     global quiz
     quiz = Toplevel(menu)
@@ -313,7 +315,9 @@ def actualquiz():
     Label(quiz, image=img).pack()
     label.image = img
     Label(quiz, text="Whats the name of this song").pack()
-
+    artistq = Entry(quiz, textvariable=awnser1)
+    artistq().pack()
 
 
 login_menu()
+python -OO -m py_compile <py.py>
