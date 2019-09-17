@@ -3,14 +3,11 @@
 
 # All needed modules here d
 from tkinter import *
-from tkinter import PhotoImage
 import os
 import random
 import time
 import base64
-import hashlib
-import binascii
-import uuid
+import csv
 
 
 songname = "default"
@@ -31,12 +28,35 @@ class quizarray:
 user = quizarray()
 
 quizquestion = {
-    'q1': {
+    '1': {
         songname: "do i wanna know",
         artist: "arctic monkeys",
         art: "q1.gif"
+    },
+    
+    '2': {
+        songname: "question 2 reeeeeee",
+        artist: "arctic monkeys",
+        art: "passion.gif"
+    },
+    
+    '3': {
+        songname: "question 3 radadadadad",
+        artist: "arctic monkeys",
+        art: "passion.gif"
+    },
+    
+    '4': {
+        songname: "question 4 your daerararar",
+        artist: "arctic monkeys",
+        art: "passion.gif"
     }
 }
+
+
+
+
+
 
 questiontot = 0
 endme = 1
@@ -299,25 +319,34 @@ def session():  # Actual quiz after logged in
 
 
 def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
-    killsessionmenu
+    killsessionmenu #probs will never be used but ill probs forget about it cause my code is more of a mess than brexit
     login_menu()
 
 
 def actualquiz():
-    awnser1 = 1
-    label = Label()
-    global quiz
-    quiz = Toplevel(menu)
-    quiz.title("Quiz")
-    quiz.geometry("512x512")
-    Label(quiz, text="").pack()
-    img = PhotoImage(file=quizquestion[user.question][art])
-    Label(quiz, image=img).pack()
-    label.image = img
-    Label(quiz, text="Whats the name of this song").pack()
-    artistq = Entry(quiz, textvariable=awnser1)
-    artistq().pack()
+
+    questionammount = 0
+    while questionammount < 4:
+        
+        randomquestion = random.randint(0,3)
+        randomquestiontext = (randomquestion)
+        print(randomquestion)
+        user.question = quizquestion[randomquestion]
+        print(user.qustion)
+        awnser1 = 1
+        label = Label()
+        global quiz
+        quiz = Toplevel(menu)
+        quiz.title("Quiz")
+        quiz.geometry("512x512")
+        Label(quiz, text="").pack()
+        img = PhotoImage(file=quizquestion[user.question][art])
+        Label(quiz, image=img).pack()
+        label.image = img
+        Label(quiz, text="Whats the name of this song").pack()
+        artistq = Entry(quiz, textvariable=awnser1)
+        artistq().pack()
 
 
 login_menu()
-python -OO -m py_compile <py.py>
+
