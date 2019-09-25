@@ -341,13 +341,17 @@ def actualquiz():
         quiz.title("Quiz")
         quiz.geometry("512x512")
         Label(quiz, text="").pack()
-        print(quizquestion[user.question][art])
-        img = PhotoImage(file=quizquestion[user.question][art])
+        print(quizquestion[str(user.question)][art])
+        img = PhotoImage(file=quizquestion[str(user.question)][art])
         Label(quiz, image=img).pack()
         label.image = img
         Label(quiz, text="Whats the name of this song").pack()
         artistq = Entry(quiz, textvariable=awnser1)
-        artistq().pack()
+        artistq.pack()
+        questionammount = questionammount + 1
+
+    else:
+        print("finish")
 
 
 login_menu()
