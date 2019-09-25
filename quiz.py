@@ -322,14 +322,14 @@ def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
     killsessionmenu #probs will never be used but ill probs forget about it cause my code is more of a mess than brexit
     login_menu()
 
-
+questionamount = 0
 def actualquiz():
-
-    questionammount = 0
-    while questionammount < 4:
-
+    def showNewQuestion(questionamount):
+        if questionamount > 3:
+            print("gay")
+            return
         global quizquestion
-        randomquestion = random.randint(0,3)
+        randomquestion = random.randint(1, 4)
         randomquestiontext = (randomquestion)
         print(randomquestion)
         user.question = randomquestion
@@ -341,18 +341,28 @@ def actualquiz():
         quiz.title("Quiz")
         quiz.geometry("512x512")
         Label(quiz, text="").pack()
-        print(quizquestion[str(user.question)][art])
         img = PhotoImage(file=quizquestion[str(user.question)][art])
         Label(quiz, image=img).pack()
         label.image = img
         Label(quiz, text="Whats the name of this song").pack()
         artistq = Entry(quiz, textvariable=awnser1)
         artistq.pack()
-        questionammount = questionammount + 1
+        def newquiz():
+            artistqawn = artistq.get()
+            if artistqawn == quizquestion[str(user.question)][artist]:
+                print("yay")
+            quiz.destroy()
+            showNewQuestion(questionamount + 1)
+        Button(quiz, text="HELLO", command=lambda: newquiz()).pack()
 
-    else:
-        print("finish")
 
+
+
+
+
+
+
+    showNewQuestion(questionamount)
 
 login_menu()
 
