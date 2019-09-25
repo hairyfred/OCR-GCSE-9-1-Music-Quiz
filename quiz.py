@@ -19,7 +19,7 @@ status = 0
 
 class quizarray:
     def __init__(change):
-        change.question = 'q1'
+        change.question = '1'
         change.songname = ''
         change.artist = ''
         change.art = ''
@@ -327,12 +327,13 @@ def actualquiz():
 
     questionammount = 0
     while questionammount < 4:
-        
+
+        global quizquestion
         randomquestion = random.randint(0,3)
         randomquestiontext = (randomquestion)
         print(randomquestion)
-        user.question = quizquestion[randomquestion]
-        print(user.qustion)
+        user.question = randomquestion
+        print(user.question)
         awnser1 = 1
         label = Label()
         global quiz
@@ -340,6 +341,7 @@ def actualquiz():
         quiz.title("Quiz")
         quiz.geometry("512x512")
         Label(quiz, text="").pack()
+        print(quizquestion[user.question][art])
         img = PhotoImage(file=quizquestion[user.question][art])
         Label(quiz, image=img).pack()
         label.image = img
