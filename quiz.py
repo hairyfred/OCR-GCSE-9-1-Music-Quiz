@@ -11,7 +11,7 @@ import csv
 
 
 songname = "default"
-artist = "default"
+album = "default"
 art = "default"
 img = 0
 status = 0
@@ -30,26 +30,26 @@ user = quizarray()
 quizquestion = {
     '1': {
         songname: "do i wanna know",
-        artist: "arctic monkeys",
+        album: "arctic monkeys",
         art: "q1.gif"
     },
     
     '2': {
         songname: "question 2 reeeeeee",
-        artist: "arctic monkeys",
-        art: "passion.gif"
+        album: "arctic monkeys",
+        art: "q2.gif"
     },
     
     '3': {
         songname: "question 3 radadadadad",
-        artist: "arctic monkeys",
-        art: "passion.gif"
+        album: "arctic monkeys",
+        art: "q1.gif"
     },
     
     '4': {
         songname: "question 4 your daerararar",
-        artist: "arctic monkeys",
-        art: "passion.gif"
+        album: "arctic monkeys",
+        art: "q2.gif"
     }
 }
 
@@ -335,6 +335,7 @@ def actualquiz():
         user.question = randomquestion
         print(user.question)
         awnser1 = 1
+        awnser2 = 1
         label = Label()
         global quiz
         quiz = Toplevel(menu)
@@ -344,16 +345,22 @@ def actualquiz():
         img = PhotoImage(file=quizquestion[str(user.question)][art])
         Label(quiz, image=img).pack()
         label.image = img
-        Label(quiz, text="Whats the name of this song").pack()
-        artistq = Entry(quiz, textvariable=awnser1)
-        artistq.pack()
+
+        Label(quiz, text="Whats the name of this song?", font=("arial", 18), height=1).pack()
+        songq = Entry(quiz, textvariable=awnser1, font=("arial", 16))
+        songq.pack()
+        Label(quiz, text="").pack()
+        Label(quiz, text="Whats the album called?", font=("arial", 18), height=1).pack()
+        albumq = Entry(quiz, textvariable=awnser2, font=("arial", 16))
+        albumq.pack()
         def newquiz():
-            artistqawn = artistq.get()
-            if artistqawn == quizquestion[str(user.question)][artist]:
+            albumawn = albumq.get()
+            if albumawn == quizquestion[str(user.question)][album]:
                 print("yay")
             quiz.destroy()
             showNewQuestion(questionamount + 1)
-        Button(quiz, text="HELLO", command=lambda: newquiz()).pack()
+        Label(quiz, text="").pack()
+        Button(quiz, text="Submit", command=lambda: newquiz()).pack()
 
 
 
