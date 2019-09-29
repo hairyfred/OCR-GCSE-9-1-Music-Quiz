@@ -5,6 +5,7 @@
 from tkinter import *
 import os
 import random
+import secrets
 import time
 import base64
 import csv
@@ -54,7 +55,31 @@ quizquestion = {
 }
 
 
+quizquestionbackup = {
+    '1': {
+        songname: "do i wanna know",
+        album: "arctic monkeys",
+        art: "q1.gif"
+    },
 
+    '2': {
+        songname: "question 2 reeeeeee",
+        album: "arctic monkeys",
+        art: "q2.gif"
+    },
+
+    '3': {
+        songname: "question 3 radadadadad",
+        album: "arctic monkeys",
+        art: "q1.gif"
+    },
+
+    '4': {
+        songname: "question 4 your daerararar",
+        album: "arctic monkeys",
+        art: "q2.gif"
+    }
+}
 
 
 
@@ -323,13 +348,16 @@ def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
     login_menu()
 
 questionamount = 0
+
+
+
 def actualquiz():
     def showNewQuestion(questionamount):
         if questionamount > 3:
-            print("gay")
+            print("finish")
+            quizquestion.update(quizquestionbackup)
             return
-        global quizquestion
-        randomquestion = random.randint(1, 4)
+        randomquestion = random.choice(list(quizquestion.keys()))
         randomquestiontext = (randomquestion)
         print(randomquestion)
         user.question = randomquestion
@@ -358,6 +386,7 @@ def actualquiz():
             if albumawn == quizquestion[str(user.question)][album]:
                 print("yay")
             quiz.destroy()
+            del quizquestion[str(user.question)]
             showNewQuestion(questionamount + 1)
         Label(quiz, text="").pack()
         Button(quiz, text="Submit", command=lambda: newquiz()).pack()
