@@ -390,6 +390,17 @@ def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
 questionamount = 0
 
 
+def nextquestion():
+    quiz.destroy()
+    global quiznext
+    quiznext = Toplevel(menu)
+    quiznext.title("Next")
+    quiznext.geometry("200x150")
+    Label(quiznext, text="Next Question?")
+    Button(quiznext, text="OK", command=lambda: newquiz()).pack()
+
+
+
 
 def actualquiz():
     def showNewQuestion(questionamount):
@@ -413,18 +424,31 @@ def actualquiz():
         img = PhotoImage(file=quizquestion[str(user.question)][art])
         Label(quiz, image=img).pack()
         label.image = img
-
         Label(quiz, text="Whats the name of this song?", font=("arial", 18), height=1).pack()
-        Button(quiz, text="quizquestion[str(user.question)][choice1]", command=lambda: newquiz()).pack()  
         def newquiz():
-            albumawn = albumq.get()
-            if albumawn == quizquestion[str(user.question)][album]:
-                print("yay")
-            quiz.destroy()
+
             del quizquestion[str(user.question)]
             showNewQuestion(questionamount + 1)
+
+
+        def choice1select():
+            awnser1 = quizquestion[str(user.question)][choice1]
+            nextquestion()
+
+        Button(quiz, text=quizquestion[str(user.question)][choice2], command=choice1select()).pack()
+
+        def choice2select():
+            awnser1 = quizquestion[str(user.question)][choice2]
+            nextquestion()
+
+        Button(quiz, text=quizquestion[str(user.question)][choice2], command=choice2select()).pack()
+
+        def choice3select():
+            awnser1 = quizquestion[str(user.question)][choice3]
+            nextquestion()
+
+        Button(quiz, text=quizquestion[str(user.question)][choice3], command=choice3select()).pack()
         Label(quiz, text="").pack()
-        Button(quiz, text="Submit", command=lambda: newquiz()).pack()
 
 
 
