@@ -5,7 +5,6 @@
 from tkinter import *
 import os
 import random
-import secrets
 import time
 import base64
 import csv
@@ -14,6 +13,9 @@ import csv
 songname = "default"
 album = "default"
 art = "default"
+choice1 = 1
+choice2 = 2
+choice3 = 3
 img = 0
 status = 0
 
@@ -21,9 +23,9 @@ status = 0
 class quizarray:
     def __init__(change):
         change.question = '1'
-        change.songname = ''
-        change.artist = ''
-        change.art = ''
+        change.songname = '1'
+        change.artist = '1'
+        change.art = '1'
 
 
 user = quizarray()
@@ -32,25 +34,37 @@ quizquestion = {
     '1': {
         songname: "do i wanna know",
         album: "arctic monkeys",
-        art: "q1.gif"
+        art: "q1.gif",
+        choice1: "R U Mine?",
+        choice2: "Do I wanna know?",
+        choice3: "Fluorescent Adolescent"
     },
     
     '2': {
-        songname: "question 2 reeeeeee",
-        album: "arctic monkeys",
-        art: "q2.gif"
+        songname: "through the fire and the flames",
+        album: "inhuman rampage",
+        art: "q2.gif",
+        choice1: "Guitar Hero 3 OST",
+        choice2: "Fire and Flames",
+        choice3: "Through the Fire and the Flames"
     },
     
     '3': {
-        songname: "question 3 radadadadad",
-        album: "arctic monkeys",
-        art: "q1.gif"
+        songname: "sweden",
+        album: "minecraft",
+        art: "q3.gif",
+        choice1: "Sweden",
+        choice2: "Far",
+        choice3: "Cat"
     },
     
     '4': {
-        songname: "question 4 your daerararar",
-        album: "arctic monkeys",
-        art: "q2.gif"
+        songname: "The Four Horsemen",
+        album: "metallica",
+        art: "q4.gif",
+        choice1: "Enter Sandman",
+        choice2: "The Four Horsemen",
+        choice3: "Fuel"
     }
 }
 
@@ -59,28 +73,39 @@ quizquestionbackup = {
     '1': {
         songname: "do i wanna know",
         album: "arctic monkeys",
-        art: "q1.gif"
+        art: "q1.gif",
+        choice1: "R U Mine?",
+        choice2: "Do I wanna know?",
+        choice3: "Fluorescent Adolescent"
     },
-
+    
     '2': {
-        songname: "question 2 reeeeeee",
-        album: "arctic monkeys",
-        art: "q2.gif"
+        songname: "through the fire and the flames",
+        album: "inhuman rampage",
+        art: "q2.gif",
+        choice1: "Guitar Hero 3 OST",
+        choice2: "Fire and Flames",
+        choice3: "Through the Fire and the Flames"
     },
-
+    
     '3': {
-        songname: "question 3 radadadadad",
-        album: "arctic monkeys",
-        art: "q1.gif"
+        songname: "sweden",
+        album: "minecraft",
+        art: "q3.gif",
+        choice1: "Sweden",
+        choice2: "Far",
+        choice3: "Cat"
     },
-
+    
     '4': {
-        songname: "question 4 your daerararar",
-        album: "arctic monkeys",
-        art: "q2.gif"
+        songname: "The Four Horsemen",
+        album: "metallica",
+        art: "q4.gif",
+        choice1: "Enter Sandman",
+        choice2: "The Four Horsemen",
+        choice3: "Fuel"
     }
 }
-
 
 
 questiontot = 0
@@ -132,6 +157,9 @@ def killaccountexists():
 
 def killaccountmade():
     accountmade1.destroy()
+
+def killaddpassword():
+    addpassword1.destroy()
 
 # rip
 
@@ -224,24 +252,36 @@ def reguser():
 
     status2 = 1
     status = 0
-    username_info = username.get()  # Gets entered Username
+    username_info = username.get()
+    password_info = password.get()# Gets entered Username
     if username_info in listoffiles:
         accountexists()
     else:
-        password_info = password.get()  # Gets entered Password
-        random.seed(password_info, 2)
-        hashpassword = random.random()
-        hashpasswordtext = str(hashpassword)
-        print(hashpassword)
-        file = open(username_info, "w")  # Makes a new file named after username
-        file.write(username_info + "\n")  # Writes Username
-        file.write(hashpasswordtext)  # Writes password
-        file.close()  # Closes the file
+        if password_info == "":
+            addpassword()
 
-        username_entry.delete(0, END)
-        password_entry.delete(0, END)  # Resets line
-        accountmade()
+        else:
+                                    # Gets entered Password
+            random.seed(password_info, 2)
+            hashpassword = random.random()
+            hashpasswordtext = str(hashpassword)
+            print(hashpassword)
+            file = open(username_info, "w")  # Makes a new file named after username
+            file.write(username_info + "\n")  # Writes Username
+            file.write(hashpasswordtext)  # Writes password
+            file.close()  # Closes the file
 
+            username_entry.delete(0, END)
+            password_entry.delete(0, END)  # Resets line
+            accountmade()
+
+def addpassword():
+    global addpassword1
+    addpassword1 = Toplevel(menu)
+    addpassword1.title("")
+    addpassword1.geometry("200x150")
+    Label(addpassword1, text="Add a Password").pack()
+    Button(addpassword1, width=300, height=10, text="OK", command=killaddpassword).pack()
 
 def accountexists():  # Wrong password
     global accountexists1
@@ -375,12 +415,7 @@ def actualquiz():
         label.image = img
 
         Label(quiz, text="Whats the name of this song?", font=("arial", 18), height=1).pack()
-        songq = Entry(quiz, textvariable=awnser1, font=("arial", 16))
-        songq.pack()
-        Label(quiz, text="").pack()
-        Label(quiz, text="Whats the album called?", font=("arial", 18), height=1).pack()
-        albumq = Entry(quiz, textvariable=awnser2, font=("arial", 16))
-        albumq.pack()
+        Button(quiz, text="quizquestion[str(user.question)][choice1]", command=lambda: newquiz()).pack()  
         def newquiz():
             albumawn = albumq.get()
             if albumawn == quizquestion[str(user.question)][album]:
