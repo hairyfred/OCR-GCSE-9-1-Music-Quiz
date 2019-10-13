@@ -388,7 +388,7 @@ def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
     login_menu()
 
 questionamount = 0
-awnser1 = 0
+
 
 
 
@@ -397,7 +397,7 @@ awnser1 = 0
 
 def actualquiz():
     score = 0
-    global awnser1
+
 
 
     def showNewQuestion(questionamount):
@@ -443,7 +443,7 @@ def actualquiz():
             Label(quiznext, text="").pack()
             Button(quiznext, font=("arial", 18), width=10, text="OK", command=newquiz).pack()
 
-        def awnsercheck(awnser1):
+        def awnsercheck():
             print(awnser1)
             if awnser1 == quizquestion[str(user.question)][songname]:
                 score = score + 1
@@ -453,19 +453,19 @@ def actualquiz():
 
 
         def choice1select():
-            awnsercheck(awnser1) = quizquestion[str(user.question)][choice1]
+            awnser1 = quizquestion[str(user.question)][choice1]
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30, text=quizquestion[str(user.question)][choice1], command=choice1select).pack()
         Label(quiz, text="").pack()
         def choice2select():
-            awnsercheck(awnser1) = quizquestion[str(user.question)][choice2]
+            awnser1 = quizquestion[str(user.question)][choice2]
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30,  text=quizquestion[str(user.question)][choice2], command=choice2select).pack()
         Label(quiz, text="").pack()
         def choice3select():
-            awnsercheck(awnser1) = quizquestion[str(user.question)][choice3]
+            awnser1 = quizquestion[str(user.question)][choice3]
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30, text=quizquestion[str(user.question)][choice3], command=choice3select).pack()
