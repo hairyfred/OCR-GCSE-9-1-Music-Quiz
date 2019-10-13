@@ -388,33 +388,29 @@ def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
     login_menu()
 
 questionamount = 0
+awnser1 = 0
 
 
-def nextquestion():
-    quiz.destroy()
-    global quiznext
-    quiznext = Toplevel(menu)
-    quiznext.title("Next")
-    quiznext.geometry("200x150")
-    Label(quiznext, text="Next Question?")
-    Button(quiznext, text="OK", command=lambda: newquiz()).pack()
 
 
 
 
 def actualquiz():
+    score = 0
+    global awnser1
+
+
     def showNewQuestion(questionamount):
         if questionamount > 3:
             print("finish")
             quizquestion.update(quizquestionbackup)
             return
+        global randomquestion
         randomquestion = random.choice(list(quizquestion.keys()))
         randomquestiontext = (randomquestion)
         print(randomquestion)
         user.question = randomquestion
         print(user.question)
-        awnser1 = 1
-        awnser2 = 1
         label = Label()
         global quiz
         quiz = Toplevel(menu)
@@ -424,30 +420,55 @@ def actualquiz():
         img = PhotoImage(file=quizquestion[str(user.question)][art])
         Label(quiz, image=img).pack()
         label.image = img
-        Label(quiz, text="Whats the name of this song?", font=("arial", 18), height=1).pack()
+
+        Label(quiz, text="Whats the name of this song?", font=("arial", 25), height=1).pack()
+        Label(quiz, text="").pack()
+
         def newquiz():
 
+            quiznext.destroy()
             del quizquestion[str(user.question)]
             showNewQuestion(questionamount + 1)
 
+        def nextquestion():
+            quiz.destroy()
+            global quiznext
+            quiznext = Toplevel(menu)
+            quiznext.title("Next")
+
+            quiznext.geometry("200x150")
+
+            Label(quiznext, text="").pack()
+            Label(quiznext, font=("arial", 18), text="Next Question?").pack()
+            Label(quiznext, text="").pack()
+            Button(quiznext, font=("arial", 18), width=10, text="OK", command=newquiz).pack()
+
+        def awnsercheck(awnser1):
+            print(awnser1)
+            if awnser1 == quizquestion[str(user.question)][songname]:
+                score = score + 1
+                print("point added")
+            else:
+                nextquestion()
+
 
         def choice1select():
-            awnser1 = quizquestion[str(user.question)][choice1]
-            nextquestion()
+            awnsercheck(awnser1) = quizquestion[str(user.question)][choice1]
+            awnsercheck()
 
-        Button(quiz, text=quizquestion[str(user.question)][choice2], command=choice1select()).pack()
-
+        Button(quiz, font=("arial", 18), width=30, text=quizquestion[str(user.question)][choice1], command=choice1select).pack()
+        Label(quiz, text="").pack()
         def choice2select():
-            awnser1 = quizquestion[str(user.question)][choice2]
-            nextquestion()
+            awnsercheck(awnser1) = quizquestion[str(user.question)][choice2]
+            awnsercheck()
 
-        Button(quiz, text=quizquestion[str(user.question)][choice2], command=choice2select()).pack()
-
+        Button(quiz, font=("arial", 18), width=30,  text=quizquestion[str(user.question)][choice2], command=choice2select).pack()
+        Label(quiz, text="").pack()
         def choice3select():
-            awnser1 = quizquestion[str(user.question)][choice3]
-            nextquestion()
+            awnsercheck(awnser1) = quizquestion[str(user.question)][choice3]
+            awnsercheck()
 
-        Button(quiz, text=quizquestion[str(user.question)][choice3], command=choice3select()).pack()
+        Button(quiz, font=("arial", 18), width=30, text=quizquestion[str(user.question)][choice3], command=choice3select).pack()
         Label(quiz, text="").pack()
 
 
