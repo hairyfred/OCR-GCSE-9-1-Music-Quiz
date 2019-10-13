@@ -10,12 +10,12 @@ import base64
 import csv
 
 
-songname = "default"
-album = "default"
-art = "default"
-choice1 = 1
-choice2 = 2
-choice3 = 3
+songname = 1
+album = 2
+art = 3
+choice1 = 4
+choice2 = 5
+choice3 = 6
 img = 0
 status = 0
 
@@ -23,25 +23,27 @@ status = 0
 class quizarray:
     def __init__(change):
         change.question = '1'
-        change.songname = '1'
+        change.song_name = 'default'
+        change.awnser1 = '1'
         change.artist = '1'
         change.art = '1'
+        change.score = 1
 
 
 user = quizarray()
 
 quizquestion = {
     '1': {
-        songname: "do i wanna know",
+        songname: "Do I Wanna Know",
         album: "arctic monkeys",
         art: "q1.gif",
         choice1: "R U Mine?",
-        choice2: "Do I wanna know?",
+        choice2: "Do I Wanna know?",
         choice3: "Fluorescent Adolescent"
     },
     
     '2': {
-        songname: "through the fire and the flames",
+        songname: "Through the Fire and the Flames",
         album: "inhuman rampage",
         art: "q2.gif",
         choice1: "Guitar Hero 3 OST",
@@ -50,7 +52,7 @@ quizquestion = {
     },
     
     '3': {
-        songname: "sweden",
+        songname: "Sweden",
         album: "minecraft",
         art: "q3.gif",
         choice1: "Sweden",
@@ -107,7 +109,7 @@ quizquestionbackup = {
     }
 }
 
-
+print(quizquestion[str(user.question)])
 questiontot = 0
 endme = 1
 
@@ -383,6 +385,7 @@ def session():  # Actual quiz after logged in
     Label.image = photo
 
 
+
 def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
     killsessionmenu #probs will never be used but ill probs forget about it cause my code is more of a mess than brexit
     login_menu()
@@ -396,7 +399,7 @@ questionamount = 0
 
 
 def actualquiz():
-    score = 0
+    user.score = 0
 
 
 
@@ -406,8 +409,8 @@ def actualquiz():
             quizquestion.update(quizquestionbackup)
             return
         global randomquestion
+
         randomquestion = random.choice(list(quizquestion.keys()))
-        randomquestiontext = (randomquestion)
         print(randomquestion)
         user.question = randomquestion
         print(user.question)
@@ -444,28 +447,31 @@ def actualquiz():
             Button(quiznext, font=("arial", 18), width=10, text="OK", command=newquiz).pack()
 
         def awnsercheck():
-            print(awnser1)
-            if awnser1 == quizquestion[str(user.question)][songname]:
-                score = score + 1
+            user.song_name = quizquestion[str(user.question)][songname]
+            print(user.awnser1)
+            if user.awnser1 == user.song_name:
+                user.score = user.score + 1
                 print("point added")
+                print(user.score)
+                nextquestion()
             else:
                 nextquestion()
 
 
         def choice1select():
-            awnser1 = quizquestion[str(user.question)][choice1]
+            user.awnser1 = quizquestion[str(user.question)][choice1]
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30, text=quizquestion[str(user.question)][choice1], command=choice1select).pack()
         Label(quiz, text="").pack()
         def choice2select():
-            awnser1 = quizquestion[str(user.question)][choice2]
+            user.awnser1 = quizquestion[str(user.question)][choice2]
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30,  text=quizquestion[str(user.question)][choice2], command=choice2select).pack()
         Label(quiz, text="").pack()
         def choice3select():
-            awnser1 = quizquestion[str(user.question)][choice3]
+            user.awnser1 = quizquestion[str(user.question)][choice3]
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30, text=quizquestion[str(user.question)][choice3], command=choice3select).pack()
