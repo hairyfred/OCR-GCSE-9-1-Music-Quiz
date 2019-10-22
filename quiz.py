@@ -18,6 +18,7 @@ choice2 = 5
 choice3 = 6
 img = 0
 status = 0
+active = 0
 
 
 class quizarray:
@@ -28,6 +29,8 @@ class quizarray:
         change.artist = '1'
         change.art = '1'
         change.score = 1
+        change.quizactive = 0
+        change.loginactive = 0
 
 
 user = quizarray()
@@ -152,7 +155,13 @@ def killmenu():
 
 
 def killsession():
+    
+    
     sessionmenu.destroy()
+    user.loginactive = 0
+    
+    
+    
 
 def killaccountexists():
     accountexists1.destroy()
@@ -179,14 +188,20 @@ def login_menu():  # Basically the login system ui
     Label(text="Python Music Quiz", bg="grey", width="350", height="3",
           font=("Gill Sans Ultra Bold", 15)).pack()  # Fancy title text
     Label(text="").pack()  # Blank Spacer 900000000
-    Button(text="Login", command=login, height="3", width="40").pack()  # Directs to login function
+    Button(text="Login", command=loginactivefix, height="3", width="40").pack()  # Directs to login function
     Label(text="").pack()  # Blank Spacer 900000000
     Button(text="Register", command=register, height="3", width="40").pack()  # Directs to register function
 
     menu.mainloop()
 
+def loginactivefix():
+    if user.loginactive == 0:
+        login()
+    else:
+        print("")
 
 def login():  # all your passwords are in plain text , facebook was my inspiration
+    user.loginactive = 1
     print(
         "someone is trying to guess a password")  # Prints in console , good for error testing so I know when somthing fails
     global logmenu  # So I can use it anywhere
@@ -361,6 +376,7 @@ def login_correct():  # Wrong password
     correctmenu.title("Correct")
     correctmenu.geometry("200x150")
     Label(correctmenu, text="Welcome").pack()
+    user.loginactive = 1
     Button(correctmenu, width=300, height=10, text="OK", command=session).pack()
 
 
@@ -374,7 +390,7 @@ def session():  # Actual quiz after logged in
     Label(sessionmenu, bg="grey", width="350", height="3", font=("Gill Sans Ultra Bold", 25),
           text="Welcome to the Quiz").pack()  # New Menu for quiz options
     Label(sessionmenu, text="").pack()
-    Button(sessionmenu, width=50, height=3, text="Start", command=actualquiz).pack()
+    Button(sessionmenu, width=50, height=3, text="Start", command=actualquizdupefix).pack()
     Label(sessionmenu, text="").pack()
     Button(sessionmenu, width=50, height=3, text="Scores").pack()
     Label(sessionmenu, text="").pack()
@@ -393,19 +409,23 @@ def ultimateback():  # NOT USED FOR NOW UNTIL FIXED
 questionamount = 0
 
 
-
+def actualquizdupefix():
+    if user.quizactive == 0:
+        actualquiz()
+    else:
+        print("")
 
 
 
 
 def actualquiz():
-    user.score = 0
-
-
+    
+    user.quizactive = 1
 
     def showNewQuestion(questionamount):
         if questionamount > 3:
             print("finish")
+            user.active = 0
             quizquestion.update(quizquestionbackup)
             return
         global randomquestion
