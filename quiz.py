@@ -9,7 +9,7 @@ import time
 import base64
 import csv
 
-
+sanitycheck = 1
 songname = 1
 album = 2
 art = 3
@@ -37,6 +37,7 @@ user = quizarray()
 
 quizquestion = {
     '1': {
+        sanitycheck: "1",
         songname: "Do I Wanna Know",
         album: "arctic monkeys",
         art: "q1.gif",
@@ -46,6 +47,7 @@ quizquestion = {
     },
     
     '2': {
+        sanitycheck: "1",
         songname: "Through the Fire and the Flames",
         album: "inhuman rampage",
         art: "q2.gif",
@@ -55,6 +57,7 @@ quizquestion = {
     },
     
     '3': {
+        sanitycheck: "1",
         songname: "Sweden",
         album: "minecraft",
         art: "q3.gif",
@@ -64,6 +67,7 @@ quizquestion = {
     },
     
     '4': {
+        sanitycheck: "1",
         songname: "The Four Horsemen",
         album: "metallica",
         art: "q4.gif",
@@ -421,31 +425,41 @@ def actualquizdupefix():
 def actualquiz():
     
     user.quizactive = 1
+    def finalscorepage():
+        global finalscore
+        finalscore = Toplevel(menu)
+        finalscore.title("Final Score!")
+        finalscore.geometry("512x512")
+        Label(finalscore, text="You scored", font=("arial", 25), height=1).pack()
+        Label(finalscore, text=(user.score, '/ 4'), font=("arial", 25), height=1).pack()
+
 
     def showNewQuestion(questionamount):
         if questionamount > 3:
+            print(user.score, "is the final score")
             print("finish")
             user.active = 0
             quizquestion.update(quizquestionbackup)
-            return
-        global randomquestion
+            finalscorepage()
+        else:
+            global randomquestion
 
-        randomquestion = random.choice(list(quizquestion.keys()))
-        print(randomquestion)
-        user.question = randomquestion
-        print(user.question)
-        label = Label()
-        global quiz
-        quiz = Toplevel(menu)
-        quiz.title("Quiz")
-        quiz.geometry("512x512")
-        Label(quiz, text="").pack()
-        img = PhotoImage(file=quizquestion[str(user.question)][art])
-        Label(quiz, image=img).pack()
-        label.image = img
+            randomquestion = random.choice(list(quizquestion.keys()))
+            print(randomquestion)
+            user.question = randomquestion
+            print(user.question)
+            label = Label()
+            global quiz
+            quiz = Toplevel(menu)
+            quiz.title("Quiz")
+            quiz.geometry("512x512")
+            Label(quiz, text="").pack()
+            img = PhotoImage(file=quizquestion[str(user.question)][art])
+            Label(quiz, image=img).pack()
+            label.image = img
 
-        Label(quiz, text="Whats the name of this song?", font=("arial", 25), height=1).pack()
-        Label(quiz, text="").pack()
+            Label(quiz, text="Whats the name of this song?", font=("arial", 25), height=1).pack()
+            Label(quiz, text="").pack()
 
         def newquiz():
 
@@ -468,7 +482,7 @@ def actualquiz():
 
         def awnsercheck():
             user.song_name = quizquestion[str(user.question)][songname]
-            print(user.awnser1)
+
             if user.awnser1 == user.song_name:
                 user.score = user.score + 1
                 print("point added")
