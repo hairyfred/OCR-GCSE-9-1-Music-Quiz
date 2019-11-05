@@ -7,6 +7,7 @@ import os
 import random
 import time
 import base64
+
 import csv
 
 sanitycheck = 1
@@ -31,6 +32,7 @@ class quizarray:
         change.score = 1
         change.quizactive = 0
         change.loginactive = 0
+        change.regactive = 0
 
 
 user = quizarray()
@@ -116,7 +118,7 @@ quizquestionbackup = {
     }
 }
 
-print(quizquestion[str(user.question)])
+
 questiontot = 0
 endme = 1
 
@@ -139,10 +141,12 @@ def killsessionmenu():
 
 
 def killloginmenu():
+    user.loginactive = 0
     logmenu.destroy()
 
 
 def killregmenu():
+    user.regactive = 0
     regmenu.destroy()
 
 
@@ -184,9 +188,11 @@ a = True
 
 
 def login_menu():  # Basically the login system ui
+    
     global menu  # Globalising it so I can use it anywhere
 
     menu = Tk()  # Start login gui
+    menu.eval('tk::PlaceWindow . center')
     menu.geometry("350x300")  # Window size
     menu.title("Python Music Quiz")  # Title
     Label(text="Python Music Quiz", bg="grey", width="350", height="3",
@@ -194,7 +200,7 @@ def login_menu():  # Basically the login system ui
     Label(text="").pack()  # Blank Spacer 900000000
     Button(text="Login", command=loginactivefix, height="3", width="40").pack()  # Directs to login function
     Label(text="").pack()  # Blank Spacer 900000000
-    Button(text="Register", command=register, height="3", width="40").pack()  # Directs to register function
+    Button(text="Register", command=regactivecheck, height="3", width="40").pack()  # Directs to register function
 
     menu.mainloop()
 
@@ -210,6 +216,9 @@ def login():  # all your passwords are in plain text , facebook was my inspirati
         "someone is trying to guess a password")  # Prints in console , good for error testing so I know when somthing fails
     global logmenu  # So I can use it anywhere
     logmenu = Toplevel(menu)  # Brings current window to front
+    
+    logmenu.overrideredirect(True)
+    
     logmenu.title("Login")
     logmenu.geometry("350x300")
     Label(logmenu, text="Login").pack()  # Submits data
@@ -236,9 +245,19 @@ def login():  # all your passwords are in plain text , facebook was my inspirati
     Button(logmenu, text="Back", width=15, command=killloginmenu, height=2).pack()
 
 
+def regactivecheck():
+    if user.regactive == 0:
+        user.regactive = 1
+        register()
+    else:
+        print("")
+
+
 def register():  # all the account data handling , plz send help
+    print(user.regactive)
     global regmenu
     regmenu = Toplevel(menu)
+    regmenu.overrideredirect(True)
     regmenu.title("Register")
     regmenu.geometry("350x300")
 
@@ -319,6 +338,7 @@ def accountmade():
     accountmade1.geometry("200x150")
     Label(accountmade1, text="Registration Complete", fg="green", font=("calibri", 12)).pack()
     Button(accountmade1, width=300, height=10, text="OK", command=killaccountmade).pack()
+    
 
 def big_pass():
     number = 420.;
@@ -414,7 +434,7 @@ questionamount = 0
 
 
 def actualquizdupefix():
-    if user.quizactive == 0:
+    if user.quizactive == 0: #Stops multiple quiz's being opened at once
         actualquiz()
     else:
         print("")
@@ -424,29 +444,29 @@ def actualquizdupefix():
 
 def actualquiz():
     
-    user.quizactive = 1
+    user.quizactive = 1 # To prevent duplicate quiz sessions
     def finalscorepage():
         global finalscore
         finalscore = Toplevel(menu)
-        finalscore.title("Final Score!")
+        finalscore.title("Final Score!") # Final score display page
         finalscore.geometry("512x512")
         Label(finalscore, text="You scored", font=("arial", 25), height=1).pack()
         Label(finalscore, text=(user.score, '/ 4'), font=("arial", 25), height=1).pack()
 
 
     def showNewQuestion(questionamount):
-        if questionamount > 3:
+        if questionamount > 3:  # Counts question left
             print(user.score, "is the final score")
-            print("finish")
-            user.active = 0
-            quizquestion.update(quizquestionbackup)
-            finalscorepage()
+            print("finish") 
+            user.active = 0 # Resets the quiz session active check
+            quizquestion.update(quizquestionbackup) # Resets the quiz questions
+            finalscorepage() # Opens final score page
         else:
             global randomquestion
 
-            randomquestion = random.choice(list(quizquestion.keys()))
+            randomquestion = random.choice(list(quizquestion.keys())) #Counts the questions , makes it easier later on to add questions
             print(randomquestion)
-            user.question = randomquestion
+            user.question = randomquestion #Assigns the value to a class
             print(user.question)
             label = Label()
             global quiz
@@ -454,7 +474,7 @@ def actualquiz():
             quiz.title("Quiz")
             quiz.geometry("512x512")
             Label(quiz, text="").pack()
-            img = PhotoImage(file=quizquestion[str(user.question)][art])
+            img = PhotoImage(file=quizquestion[str(user.question)][art]) #Looks in the dictornary for the right img
             Label(quiz, image=img).pack()
             label.image = img
 
@@ -464,8 +484,8 @@ def actualquiz():
         def newquiz():
 
             quiznext.destroy()
-            del quizquestion[str(user.question)]
-            showNewQuestion(questionamount + 1)
+            del quizquestion[str(user.question)] #After the question is used it removes it so it cant be repeated
+            showNewQuestion(questionamount + 1) #Says 1 more question has been completed
 
         def nextquestion():
             quiz.destroy()
@@ -481,10 +501,10 @@ def actualquiz():
             Button(quiznext, font=("arial", 18), width=10, text="OK", command=newquiz).pack()
 
         def awnsercheck():
-            user.song_name = quizquestion[str(user.question)][songname]
+            user.song_name = quizquestion[str(user.question)][songname] #Gets the song from the dictionary
 
-            if user.awnser1 == user.song_name:
-                user.score = user.score + 1
+            if user.awnser1 == user.song_name: #Checks if its the right song
+                user.score = user.score + 1 #adds a point if its the right question
                 print("point added")
                 print(user.score)
                 nextquestion()
@@ -493,13 +513,13 @@ def actualquiz():
 
 
         def choice1select():
-            user.awnser1 = quizquestion[str(user.question)][choice1]
+            user.awnser1 = quizquestion[str(user.question)][choice1] 
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30, text=quizquestion[str(user.question)][choice1], command=choice1select).pack()
         Label(quiz, text="").pack()
         def choice2select():
-            user.awnser1 = quizquestion[str(user.question)][choice2]
+            user.awnser1 = quizquestion[str(user.question)][choice2]        #Assigns the button the right song
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30,  text=quizquestion[str(user.question)][choice2], command=choice2select).pack()
