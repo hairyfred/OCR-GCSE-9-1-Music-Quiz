@@ -7,8 +7,9 @@ import os
 import random
 import time
 import base64
-
+import winsound
 import csv
+
 
 sanitycheck = 1
 songname = 1
@@ -20,6 +21,7 @@ choice3 = 6
 img = 0
 status = 0
 active = 0
+wav = 0
 
 
 class quizarray:
@@ -29,6 +31,7 @@ class quizarray:
         change.awnser1 = '1'
         change.artist = '1'
         change.art = '1'
+        change.wav = 1
         change.score = 1
         change.quizactive = 0
         change.loginactive = 0
@@ -43,6 +46,7 @@ quizquestion = {
         songname: "Do I Wanna Know",
         album: "arctic monkeys",
         art: "q1.gif",
+        wav: "q3.wav",
         choice1: "R U Mine?",
         choice2: "Do I Wanna know?",
         choice3: "Fluorescent Adolescent"
@@ -53,6 +57,7 @@ quizquestion = {
         songname: "Through the Fire and the Flames",
         album: "inhuman rampage",
         art: "q2.gif",
+        wav: "q3.wav",
         choice1: "Guitar Hero 3 OST",
         choice2: "Fire and Flames",
         choice3: "Through the Fire and the Flames"
@@ -63,6 +68,7 @@ quizquestion = {
         songname: "Sweden",
         album: "minecraft",
         art: "q3.gif",
+        wav: "q3.wav",
         choice1: "Sweden",
         choice2: "Far",
         choice3: "Cat"
@@ -73,6 +79,7 @@ quizquestion = {
         songname: "The Four Horsemen",
         album: "metallica",
         art: "q4.gif",
+        wav: "q3.wav",
         choice1: "Enter Sandman",
         choice2: "The Four Horsemen",
         choice3: "Fuel"
@@ -192,7 +199,7 @@ def login_menu():  # Basically the login system ui
     global menu  # Globalising it so I can use it anywhere
 
     menu = Tk()  # Start login gui
-    menu.eval('tk::PlaceWindow . center')
+    menu.attributes("-fullscreen", True)
     menu.geometry("350x300")  # Window size
     menu.title("Python Music Quiz")  # Title
     Label(text="Python Music Quiz", bg="grey", width="350", height="3",
@@ -216,7 +223,7 @@ def login():  # all your passwords are in plain text , facebook was my inspirati
         "someone is trying to guess a password")  # Prints in console , good for error testing so I know when somthing fails
     global logmenu  # So I can use it anywhere
     logmenu = Toplevel(menu)  # Brings current window to front
-    
+    logmenu.attributes("-fullscreen", True)
     logmenu.overrideredirect(True)
     
     logmenu.title("Login")
@@ -257,6 +264,7 @@ def register():  # all the account data handling , plz send help
     print(user.regactive)
     global regmenu
     regmenu = Toplevel(menu)
+    regmenu.attributes("-fullscreen", True)
     regmenu.overrideredirect(True)
     regmenu.title("Register")
     regmenu.geometry("350x300")
@@ -318,6 +326,7 @@ def reguser():
 def addpassword():
     global addpassword1
     addpassword1 = Toplevel(menu)
+    addpassword1.attributes("-fullscreen", True)
     addpassword1.title("")
     addpassword1.geometry("200x150")
     Label(addpassword1, text="Add a Password").pack()
@@ -326,6 +335,7 @@ def addpassword():
 def accountexists():  # Wrong password
     global accountexists1
     accountexists1 = Toplevel(menu)
+    accountexists1.attributes("-fullscreen", True)
     accountexists1.title("")
     accountexists1.geometry("200x150")
     Label(accountexists1, text="Account Exists").pack()
@@ -334,6 +344,7 @@ def accountexists():  # Wrong password
 def accountmade():
     global accountmade1
     accountmade1 = Toplevel(menu)
+    accountmade1.attributes("-fullscreen", True)
     accountmade1.title("")
     accountmade1.geometry("200x150")
     Label(accountmade1, text="Registration Complete", fg="green", font=("calibri", 12)).pack()
@@ -379,6 +390,7 @@ def login_verify():  # Verifys details
 def login_failed():  # For invalid usernames
     global failedmenu
     failedmenu = Toplevel(menu)
+    failedmenu.attributes("-fullscreen", True)
     failedmenu.title("Failed")
     failedmenu.geometry("200x150")
     Label(failedmenu, text="Username not found").pack()
@@ -388,6 +400,7 @@ def login_failed():  # For invalid usernames
 def login_wrong():  # Wrong password
     global wrongmenu
     wrongmenu = Toplevel(menu)
+    wrongmenu.attributes("-fullscreen", True)
     wrongmenu.title("Wrong")
     wrongmenu.geometry("200x150")
     Label(wrongmenu, text="Wrong Password").pack()
@@ -397,6 +410,7 @@ def login_wrong():  # Wrong password
 def login_correct():  # Wrong password
     global correctmenu
     correctmenu = Toplevel(menu)
+    correctmenu.attributes("-fullscreen", True)
     correctmenu.title("Correct")
     correctmenu.geometry("200x150")
     Label(correctmenu, text="Welcome").pack()
@@ -409,6 +423,7 @@ def session():  # Actual quiz after logged in
     killloginmenu()
     global sessionmenu
     sessionmenu = Toplevel(menu)
+    sessionmenu.attributes("-fullscreen", True)
     sessionmenu.title("Quiz")
     sessionmenu.geometry("512x512")
     Label(sessionmenu, bg="grey", width="350", height="3", font=("Gill Sans Ultra Bold", 25),
@@ -448,6 +463,7 @@ def actualquiz():
     def finalscorepage():
         global finalscore
         finalscore = Toplevel(menu)
+        finalscore.attributes("-fullscreen", True)
         finalscore.title("Final Score!") # Final score display page
         finalscore.geometry("512x512")
         Label(finalscore, text="You scored", font=("arial", 25), height=1).pack()
@@ -471,13 +487,15 @@ def actualquiz():
             label = Label()
             global quiz
             quiz = Toplevel(menu)
+            quiz.attributes("-fullscreen", True)
             quiz.title("Quiz")
             quiz.geometry("512x512")
             Label(quiz, text="").pack()
             img = PhotoImage(file=quizquestion[str(user.question)][art]) #Looks in the dictornary for the right img
             Label(quiz, image=img).pack()
             label.image = img
-
+            user.wav = (quizquestion[str(user.question)][wav])
+            winsound.PlaySound(user.wav, winsound.SND_ASYNC)
             Label(quiz, text="Whats the name of this song?", font=("arial", 25), height=1).pack()
             Label(quiz, text="").pack()
 
@@ -491,7 +509,9 @@ def actualquiz():
             quiz.destroy()
             global quiznext
             quiznext = Toplevel(menu)
+            quiznext.attributes("-fullscreen", True)
             quiznext.title("Next")
+            winsound.PlaySound(None, winsound.SND_PURGE)
 
             quiznext.geometry("200x150")
 
