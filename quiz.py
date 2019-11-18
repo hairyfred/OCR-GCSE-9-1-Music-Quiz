@@ -22,7 +22,7 @@ img = 0
 status = 0
 active = 0
 wav = 0
-
+largefont = ('Verdana',25)
 
 class quizarray:
     def __init__(change):
@@ -201,13 +201,17 @@ def login_menu():  # Basically the login system ui
     menu = Tk()  # Start login gui
     menu.attributes("-fullscreen", True)
     menu.geometry("350x300")  # Window size
+    Label(text="",  height="9").pack()
+
     menu.title("Python Music Quiz")  # Title
     Label(text="Python Music Quiz", bg="grey", width="350", height="3",
-          font=("Gill Sans Ultra Bold", 15)).pack()  # Fancy title text
+          font=("Gill Sans Ultra Bold", 40)).pack()  # Fancy title text
     Label(text="").pack()  # Blank Spacer 900000000
-    Button(text="Login", command=loginactivefix, height="3", width="40").pack()  # Directs to login function
+    Button(text="Login", command=loginactivefix, height="6", width="80").pack()  # Directs to login function
     Label(text="").pack()  # Blank Spacer 900000000
-    Button(text="Register", command=regactivecheck, height="3", width="40").pack()  # Directs to register function
+    Button(text="Register", command=regactivecheck, height="6", width="80").pack()  # Directs to register function
+    Label(text="").pack()
+    Button(text="Quit", command=quit, height="6", width="80").pack()
 
     menu.mainloop()
 
@@ -228,7 +232,8 @@ def login():  # all your passwords are in plain text , facebook was my inspirati
     
     logmenu.title("Login")
     logmenu.geometry("350x300")
-    Label(logmenu, text="Login").pack()  # Submits data
+    Label(logmenu, text="Login", bg="grey", width="350", height="3",
+          font=("Gill Sans Ultra Bold", 40)).pack()  # Submits data
     Label(logmenu, text="").pack()
 
     global username_check  # Allows me to use it anywhere
@@ -240,16 +245,16 @@ def login():  # all your passwords are in plain text , facebook was my inspirati
     global username_entry2
     global password_entry2
 
-    Label(logmenu, text="Username").pack()
-    username_entry2 = Entry(logmenu, textvariable=username_check)
+    Label(logmenu, text="Username", height="2", font=largefont).pack()
+    username_entry2 = Entry(logmenu, textvariable=username_check,font=largefont)
     username_entry2.pack()
-    Label(logmenu, text="Password").pack()
-    password_entry2 = Entry(logmenu, show="*", textvariable=password_check)  # Sumbits data to other function
+    Label(logmenu, text="Password", height="2", font=largefont).pack()
+    password_entry2 = Entry(logmenu, show="*", textvariable=password_check,font=largefont)  # Sumbits data to other function
     password_entry2.pack()
     Label(logmenu, text="").pack()
-    Button(logmenu, text="Login", width=15, command=login_verify, height=2).pack()
+    Button(logmenu, text="Login", command=login_verify, height="6", width="80").pack()
     Label(logmenu, text="").pack()
-    Button(logmenu, text="Back", width=15, command=killloginmenu, height=2).pack()
+    Button(logmenu, text="Back", command=killloginmenu, height="6", width="80").pack()
 
 
 def regactivecheck():
@@ -277,19 +282,20 @@ def register():  # all the account data handling , plz send help
     username = StringVar()
     password = StringVar()
 
-    Label(regmenu, text="Registeration").pack()
+    Label(regmenu, text="Registeration", bg="grey", width="350", height="3",
+          font=("Gill Sans Ultra Bold", 40)).pack()
     Label(regmenu, text="").pack()
-    Label(regmenu, text="Username").pack()
-    username_entry = Entry(regmenu, textvariable=username)
+    Label(regmenu, text="Username", height="2", font=largefont).pack()
+    username_entry = Entry(regmenu, textvariable=username,font=largefont)
     username_entry.pack()
-    Label(regmenu, text="Password").pack()
-    password_entry = Entry(regmenu, show="*", textvariable=password)
+    Label(regmenu, text="Password", height="2", font=largefont).pack()
+    password_entry = Entry(regmenu, show="*", textvariable=password,font=largefont)
     password_entry.pack()
     Label(regmenu, text="").pack()
     status1 = 0
-    Button(regmenu, command=reguser, text="Register", width=15, height=2).pack()
+    Button(regmenu, command=reguser, text="Register", height="6", width="80").pack()
     Label(regmenu, text="").pack()
-    Button(regmenu, text="Back", width=15, command=killregmenu, height=2).pack()
+    Button(regmenu, text="Back", command=killregmenu, height="6", width="80").pack()
 
 def statusstuff():
     status1 + 1
