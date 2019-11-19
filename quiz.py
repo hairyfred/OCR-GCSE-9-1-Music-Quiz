@@ -36,6 +36,7 @@ class quizarray:
         change.quizactive = 0
         change.loginactive = 0
         change.regactive = 0
+        change.questionscore = 0
 
 
 user = quizarray()
@@ -187,6 +188,8 @@ def killaccountmade():
 def killaddpassword():
     addpassword1.destroy()
 
+def killquiztryagain():
+    quiztryagain.destroy()
 # rip
 
 test123 = 1
@@ -472,8 +475,9 @@ def actualquiz():
         finalscore.attributes("-fullscreen", True)
         finalscore.title("Final Score!") # Final score display page
         finalscore.geometry("512x512")
-        Label(finalscore, text="You scored", font=("arial", 25), height=1).pack()
-        Label(finalscore, text=(user.score, '/ 4'), font=("arial", 25), height=1).pack()
+        Label(finalscore, text="",  height="12").pack()
+        Label(finalscore, text="You scored", font=("arial", 50), height=3).pack()
+        Label(finalscore, text=(user.score), font=("arial", 50), height=3).pack()
 
 
     def showNewQuestion(questionamount):
@@ -485,7 +489,7 @@ def actualquiz():
             finalscorepage() # Opens final score page
         else:
             global randomquestion
-
+            user.questionscore = 0
             randomquestion = random.choice(list(quizquestion.keys())) #Counts the questions , makes it easier later on to add questions
             print(randomquestion)
             user.question = randomquestion #Assigns the value to a class
@@ -511,7 +515,13 @@ def actualquiz():
             del quizquestion[str(user.question)] #After the question is used it removes it so it cant be repeated
             showNewQuestion(questionamount + 1) #Says 1 more question has been completed
 
+
+
         def nextquestion():
+            
+
+
+
             quiz.destroy()
             global quiznext
             quiznext = Toplevel(menu)
@@ -524,33 +534,62 @@ def actualquiz():
             Label(quiznext, text="").pack()
             Label(quiznext, font=("arial", 18), text="Next Question?").pack()
             Label(quiznext, text="").pack()
+            user.questionscore = 0
             Button(quiznext, font=("arial", 18), width=10, text="OK", command=newquiz).pack()
 
         def awnsercheck():
+            
             user.song_name = quizquestion[str(user.question)][songname] #Gets the song from the dictionary
 
-            if user.awnser1 == user.song_name: #Checks if its the right song
-                user.score = user.score + 1 #adds a point if its the right question
-                print("point added")
-                print(user.score)
+            if user.questionscore > 1:
                 nextquestion()
             else:
-                nextquestion()
+                if user.awnser1 == user.song_name: #Checks if its the right song
+                    if user.questionscore == 1:
+                        
+                        user.score = user.score + 3
+                        nextquestion()
+                    
+                    else:
+                        user.score = user.score + 1 #adds a point if its the right question
 
+                        print("point added")
+                        print(user.score)
+                        nextquestion()
+                else:
+                    tryagain()
+        def tryagain():
+            
+            global quiztryagain
+            quiztryagain = Toplevel(menu)
+            quiztryagain.attributes("-fullscreen", True)
+            quiztryagain.title("Try Again")
+            winsound.PlaySound(None, winsound.SND_PURGE)
+
+            quiztryagain.geometry("200x150")
+
+            Label(quiztryagain, text="").pack()
+            Label(quiztryagain, font=("arial", 18), text="Try Again!").pack()
+            Label(quiztryagain, text="").pack()
+            Button(quiztryagain, font=("arial", 18), width=10, text="OK", command=killquiztryagain).pack()
+            print(user.questionscore)
 
         def choice1select():
+            user.questionscore = user.questionscore + 1
             user.awnser1 = quizquestion[str(user.question)][choice1] 
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30, text=quizquestion[str(user.question)][choice1], command=choice1select).pack()
         Label(quiz, text="").pack()
         def choice2select():
+            user.questionscore = user.questionscore + 1
             user.awnser1 = quizquestion[str(user.question)][choice2]        #Assigns the button the right song
             awnsercheck()
 
         Button(quiz, font=("arial", 18), width=30,  text=quizquestion[str(user.question)][choice2], command=choice2select).pack()
         Label(quiz, text="").pack()
         def choice3select():
+            user.questionscore = user.questionscore + 1
             user.awnser1 = quizquestion[str(user.question)][choice3]
             awnsercheck()
 
@@ -565,6 +604,8 @@ def actualquiz():
 
 
     showNewQuestion(questionamount)
+
+
 
 login_menu()
 
