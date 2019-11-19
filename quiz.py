@@ -32,7 +32,7 @@ class quizarray:
         change.artist = '1'
         change.art = '1'
         change.wav = 1
-        change.score = 1
+        change.score = 0
         change.quizactive = 0
         change.loginactive = 0
         change.regactive = 0
@@ -470,6 +470,7 @@ def actualquiz():
     
     user.quizactive = 1 # To prevent duplicate quiz sessions
     def finalscorepage():
+        user.questionscore = 0
         global finalscore
         finalscore = Toplevel(menu)
         finalscore.attributes("-fullscreen", True)
@@ -534,30 +535,33 @@ def actualquiz():
             Label(quiznext, text="").pack()
             Label(quiznext, font=("arial", 18), text="Next Question?").pack()
             Label(quiznext, text="").pack()
+            Label(quiznext, text=(user.score)).pack()
+            Label(quiznext, text=(user.questionscore)).pack()
             user.questionscore = 0
             Button(quiznext, font=("arial", 18), width=10, text="OK", command=newquiz).pack()
 
         def awnsercheck():
-            
+            print(user.score)
             user.song_name = quizquestion[str(user.question)][songname] #Gets the song from the dictionary
 
-            if user.questionscore > 1:
-                nextquestion()
-            else:
-                if user.awnser1 == user.song_name: #Checks if its the right song
-                    if user.questionscore == 1:
-                        
-                        user.score = user.score + 3
-                        nextquestion()
-                    
-                    else:
-                        user.score = user.score + 1 #adds a point if its the right question
 
-                        print("point added")
-                        print(user.score)
-                        nextquestion()
-                else:
-                    tryagain()
+            if user.awnser1 == user.song_name: #Checks if its the right song
+                if user.questionscore == 1:
+                        
+                    user.score = user.score + 3
+                    nextquestion()
+                    
+                elif user.questionscore == 2:
+                    user.score = user.score + 1#adds a point if its the right question
+
+                    print("point added")
+                    print(user.score)
+                    nextquestion()
+            elif user.questionscore == 2:
+                nextquestion()
+
+            else:
+                tryagain()
         def tryagain():
             
             global quiztryagain
@@ -571,6 +575,7 @@ def actualquiz():
             Label(quiztryagain, text="").pack()
             Label(quiztryagain, font=("arial", 18), text="Try Again!").pack()
             Label(quiztryagain, text="").pack()
+            Label(quiztryagain, text=(user.score))
             Button(quiztryagain, font=("arial", 18), width=10, text="OK", command=killquiztryagain).pack()
             print(user.questionscore)
 
