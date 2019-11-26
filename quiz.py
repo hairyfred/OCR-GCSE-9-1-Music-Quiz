@@ -546,23 +546,23 @@ def actualquiz():
 
 
             if user.awnser1 == user.song_name: #Checks if its the right song
-                if user.questionscore == 1:
+                if user.questionscore == 1: #Checks if the user has
                         
-                    user.score = user.score + 3
+                    user.score = user.score + 3 #Gives 3 score for people who awnser first try
                     nextquestion()
                     
                 elif user.questionscore == 2:
-                    user.score = user.score + 1#adds a point if its the right question
+                    user.score = user.score + 1#adds a point if its the right question but took 2 trys
 
                     print("point added")
                     print(user.score)
-                    nextquestion()
+                    nextquestion() #they failed 3 times so no points :(
             elif user.questionscore == 2:
                 nextquestion()
 
             else:
                 tryagain()
-        def tryagain():
+        def tryagain(): #Because I relised at the last second you needed multiple trys
             
             global quiztryagain
             quiztryagain = Toplevel(menu)
